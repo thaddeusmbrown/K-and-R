@@ -10,21 +10,18 @@ main()
 
   state = OUT;
   while ((c = getchar()) != EOF) {
-    if (c == ' ' || c == '\n' || c == '\t')
+    if (c == ' ' || c == '\n' || c == '\t') {           // skip whitespace
       state = OUT;
-    else if (state == OUT) {
+    } else if (state == OUT) {                          // enter a word for first time
       state = IN;
       putchar(c);
-
       c = getchar();
-    } else if (state == IN && !(c == ' ' || c == '\n' || c == '\t')) {
-      putchar(c);
-    } else {
-      putchar('h');
-      state = OUT;
+      while (!(c == ' ' || c == '\n' || c == '\t')) {   // loop through word
+        putchar(c);
+        c = getchar();
+      }
+      state = OUT;                                      // reset state and go to new line
+      putchar('\n');
     }
   }
 }
-
-
-// getting weird result where the else clause never fires
