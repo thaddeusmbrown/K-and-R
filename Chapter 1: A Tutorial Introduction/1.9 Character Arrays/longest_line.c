@@ -18,7 +18,7 @@ int main(int argc, char *argv[]) {
       copy(longest, line);
     }
   if (max > 0)  // there was a line
-    printf("\nlength: %d\n%s", max - 1, longest);
+    printf("\nlength: %d\n%s\n", max, longest);
   return 0;
 }
 
@@ -26,13 +26,22 @@ int main(int argc, char *argv[]) {
 int getline_new(char s[], int lim) {
   int c, i;
 
-  for (i=0; i<lim-1 && (c=getchar())!=EOF && c!='\n'; ++i)
+  for (i=0; i<=lim-1 && (c=getchar())!=EOF && c!='\n'; ++i)
     s[i] = c;
-  if (c == '\n') {
+  if (i == lim - 1) {
+    s[i-1] = '\n';
+    s[i] = '\0';
+    if (c != '\n') {  // 1000 length word
+      s[i-1] = '\n';
+      s[i] = '\0';
+      ++i;
+    } else {          // 999 length word
+      ;
+    }
+  } else {            // <=998 length word
     s[i] = c;
-    ++i;
+    s[i] = '\0';
   }
-  s[i] = '\0';
   return i;
 }
 
