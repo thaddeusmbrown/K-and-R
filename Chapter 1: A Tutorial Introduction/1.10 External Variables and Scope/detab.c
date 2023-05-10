@@ -1,6 +1,6 @@
 #include <stdio.h>
 
-#define TABSTOP 2       /* fixed set of tab stops every 2 columns */
+#define TABSTOP 8       /* fixed set of tab stops every 2 columns */
 #define MAXLINE 1000    /* maximum input line size */
 #define MAXLINES 10000  /* maximum output line size */
 
@@ -39,13 +39,13 @@ int getline_new(char s[], int lim) {
       s[j] = c;
       ++j;
     }
-    s[j] = '\n';
-    s[j + 1] = '\0';
-    if (c == EOF) {
-      return EOF;
-    } else {
-      return j;
-    }
+  }
+  s[j] = '\n';
+  s[j + 1] = '\0';
+  if (c == EOF) {
+    return EOF;
+  } else {
+    return j;
   }
   return -1;
 }
