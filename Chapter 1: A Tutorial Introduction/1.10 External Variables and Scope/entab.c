@@ -24,25 +24,33 @@ int main(int argc, char *argv[]) {
 
 /* take a new line in and replace spaces with tabs and minimum number of spaces */
 int getline_new(char line[], int lim) {
-  int next_char, index_in, index_out, space_count, tab_diff;
+  int next_char, index_in, index_out, space_count;
 
   index_out = 0;
   space_count = 0;
-  for (index_in = 0; index_in <= lim - 1 && (next_char = getchar()) != EOF && next_char != '\n'; ++i) {
+  for (index_in = 0; index_in <= lim - 1 && (next_char = getchar()) != EOF && next_char != '\n'; ++index_in) {
     if (next_char == ' ') {
       ++space_count;
-      while ((next_char = getchar()) == ' ')
+      while ((next_char = getchar()) == ' ') {
         ++space_count;
+        ++index_in;
+        printf("Tracking Spaces 1: %d", space_count);
+      }
       while (space_count >= TABSTOP) {
         line[index_out] = '\t';
         space_count -= TABSTOP;
         ++index_out;
+        printf("Tracking Spaces 2: %d", space_count);
       }
       while (space_count > 0) {
         line[index_out] = ' ';
         --space_count;
         ++index_out;
+        printf("Tracking Spaces 3: %d", space_count);
       }
+      printf("Current char: %c", next_char);
+      line[index_out] = next_char;
+      ++index_out;
     } else {
       line[index_out] = next_char;
       ++index_out;
@@ -50,13 +58,16 @@ int getline_new(char line[], int lim) {
   }
 
   /* put finishing touches on output line */
+  ++index_out;
   line[index_out] = '\n';
-  line[index_out + 1] = '\0';
+  ++index_out;
+  line[index_out] = '\0';
 
   /* check if we're done, and if not, return the current output index so we know where to start adding to the output with the next input line */
   if (next_char == EOF) {
     return EOF;
   } else {
+    printf("index_out = %d", index_out);
     return index_out;
   }
   return -1;
