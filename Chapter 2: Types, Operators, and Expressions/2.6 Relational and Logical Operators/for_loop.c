@@ -23,5 +23,5 @@ int main(int argc, char *argv[]) {
       i = lim;
     }
   }
-  printf("%s", s);
+  printf("%s\n", s);
 }
